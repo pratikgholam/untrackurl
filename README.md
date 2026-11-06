@@ -1,4 +1,4 @@
-# untrackurl
+# Untrack URL
 
 Strip tracking elements from any URL, privately.
 
