@@ -2,7 +2,7 @@
 
 ## Purpose
 
-untrackurl removes tracking parameters (`utm_*`, `fbclid`, `gclid`, etc.) from any URL and returns a clean link. It does not change anything else — path, fragment, and non-tracking query parameters are preserved exactly.
+untrackurl removes tracking parameters (`utm_*`, `fbclid`, `gclid`, `s=`, `a=`, etc.) from any URL and returns a clean link. It does not change anything else — path, fragment, and non-tracking query parameters are preserved exactly.
 
 **Privacy by design:** processing happens entirely on the device. Nothing is sent anywhere. No analytics, no logging, no third-party scripts. Rules are bundled at build time, so there are no runtime fetches.
 
@@ -12,16 +12,29 @@ untrackurl removes tracking parameters (`utm_*`, `fbclid`, `gclid`, etc.) from a
 
 The CLI part comes later, once the core URL-cleaning logic is developed properly.
 
+## Structure
+
+- `src/clean-url.js` — shared cleaning core (ES module). Pure logic: strips tracking params, preserves everything else. Imported by both web and (later) CLI.
+- `web/index.html` — web UI: paste input, Clean button, clean-link output, Copy button.
+- `web/style.css` — web styles.
+- `web/script.js` — web UI glue only; imports `cleanUrl` from `../src/clean-url.js`.
+
 ## How to run
 
-- Web: open `index.html` (or serve the directory locally). No build step required for now.
-- The URL-cleaning logic lives in the web app's JavaScript; rules are bundled in the repo.
+Web: serve the repo locally (ES module imports need HTTP) and open `web/index.html`:
+
+```bash
+python3 -m http.server 8000
+# open http://localhost:8000/web/index.html
+```
+
+No build step required for now. Rules are bundled in `src/clean-url.js`.
 
 ## What counts as done for the web part
 
 1. Core URL-cleaning logic works: strips known tracking params, preserves everything else.
 2. Rules are bundled locally (no runtime fetches).
-3. Paste-in / get-clean-link UI works in the browser.
+3. Paste-in / get-clean-link UI works in the browser; fields clear on refresh.
 
 Only then do we start the CLI.
 
