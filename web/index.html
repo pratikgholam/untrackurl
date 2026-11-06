@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Untrack URL</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1>Untrack URL</h1>
+    <p>Paste a link, get a clean link. Nothing leaves your device.</p>
+
+    <div class="input-group">
+      <input type="url" id="urlInput" placeholder="Put your link here" required>
+      <button id="cleanBtn">Clean</button>
+    </div>
+
+    <div class="result" id="result" hidden>
+      <input type="url" id="cleanUrl" readonly>
+      <button id="copyBtn">Copy</button>
+    </div>
+  </main>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
